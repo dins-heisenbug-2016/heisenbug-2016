@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<?- head ?>
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<?- _.css(
+		'/reveal.js/css/reveal.css',
+		'/reveal.js/css/theme/serif.css',
+		'/highlightjs/styles/github.css',
+
+		'app/css/home.css',
+		'app/css/custom.css'
+	) ?>
+
+	<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+	<script>
+		document.write( '<link rel="stylesheet" href="/reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+	</script>
+
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+
+	<title>Notell</title>
+</head>
+<body class="font-n">
+
+	<div class="reveal">
+		<?- reveal ?>
+	</div>
+
+	<?- host_assets ?>
+
+	<div class="prevent-interaction"></div>
+
+	<?- foot ?>
+
+	<?- _.js(
+		'/reveal.js/plugin/markdown/marked.js',
+		'/reveal.js/plugin/markdown/markdown.js',
+		'/reveal.js/lib/js/head.min.js',
+		'/reveal.js/js/reveal.js',
+
+		'/socket.io/socket.io.js',
+
+		'app/js/guest.js',
+		'app/js/host.js',
+		'app/js/notell.js'
+	) ?>
+
+	<script type="text/javascript">
+
+		NT.notell = new NT.Notell;
+
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!-- Global assets -->
+<?- render('assets/ejs/assets.ejs', null, true) ?>
+
+<div id="NB-scripts">
+	<?-
+		_.js(
+			// Third libs
+			'/jquery/dist/jquery.min.js',
+			'/underscore/underscore-min.js',
+			'/underscore.string/dist/underscore.string.min.js',
+			'/bootstrap/dist/js/bootstrap.min.js',
+			'/jquery.transit/jquery.transit.js',
+
+			// NB
+			'/js/jquery.helpers.js',
+			'/js/_.helpers.js',
+			'/js/app.js'
+		)
+	?>
+
+	<!-- Load languages. -->
+	<?- _.js(
+		NB.conf.load_langs.map(
+			function(el) {
+				return '/langs/' + el + '.js';
+			}
+		)
+	) ?>
+
+</div>
+
+<!-- Global configuration. -->
+<script type="text/javascript">
+
+	NB.nobone = new NB.Nobone
+
+</script>

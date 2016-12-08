@@ -1,0 +1,43 @@
+
+#host-panel
+	display none
+	position absolute
+	top 1em
+	left 0
+	width 100%
+	z-index 90001
+
+	.btn
+		background rgba(255, 255, 255, 0)
+		text-shadow 0 0 0.3em #000
+		color #fff
+		&:hover
+			background rgba(255, 255, 255, 0.3)
+
+		.fa-search
+			color: #999
+			text-shadow 0 0 0.3em #fff
+
+#timer
+	position fixed
+	display none
+	left 1em
+	bottom 1em
+	color #fff
+	font-size 1em
+	text-shadow 0 0 0.3em #000
+
+.prevent-interaction
+	display none
+	position fixed
+	top 0
+	left 0
+	right 0
+	bottom 0
+	z-index 90000
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;

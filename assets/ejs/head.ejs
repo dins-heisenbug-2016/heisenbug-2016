@@ -1,0 +1,29 @@
+<meta charset="UTF-8">
+
+<?-
+	_.css(
+		// Third libs
+		'/bootstrap/dist/css/bootstrap.min.css',
+		'/font-awesome/css/font-awesome.min.css',
+
+		// NB
+		'/css/fonts.css',
+		'/css/app.css'
+	)
+?>
+
+<script type="text/javascript">
+
+	// App name space.
+	NB = {
+		langs: {},
+		conf: {
+			mode: '<?- NB.conf.mode ?>',
+			current_lang: '<?- NB.conf.current_lang ?>'
+		}
+	};
+
+	NT = {};
+
+</script>
+

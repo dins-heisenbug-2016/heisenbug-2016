@@ -1,0 +1,2 @@
+NB.langs.en = {
+}

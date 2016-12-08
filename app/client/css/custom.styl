@@ -1,0 +1,178 @@
+// Define your custom style here.
+
+.reveal
+.reveal h1
+.reveal h2
+.reveal h3
+.reveal h4
+.reveal h5
+.reveal h6
+	font-family n, '微软雅黑'
+
+.reveal h1
+	text-shadow none
+
+// Fix the bootstrap
+pre
+	background-color transparent
+	code
+		white-space inherit
+
+.reveal
+	a
+		font-weight bold
+		color rgb(82, 161, 206)
+		&:hover
+			color rgb(35, 161, 233)
+
+	li, p
+		line-height 1.5em
+
+	i
+		display: inline-block;
+		font-family: FontAwesome;
+		font-style: normal;
+		font-weight: normal;
+		line-height: 1;
+		-webkit-font-smoothing: antialiased;
+
+.croissant {
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: inline-block;
+	background: none; !important;
+}
+
+.circle {
+	position: relative;
+	display: block;
+	margin: 2em 0;
+	text-align: center;
+}
+
+.circle:after {
+	display: block;
+	padding-bottom: 100%;
+	width: 100%;
+	height: 0;
+	border-radius: 50%;
+	background-color: #e3e6e4;
+	content: "";
+}
+
+.circle__inner {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.circle__wrapper {
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+.circle__content {
+	display: table-cell;
+	padding: 100em;
+	vertical-align: middle !important;
+}
+
+.sad li:before {
+	content: "😭";
+}
+
+.slide-number {
+	font-size: 40px !important;
+}
+
+.controls {
+	right: 100px !important;
+	bottom: 2px !important;
+}
+
+.wtf_container
+	display flex
+	flex-direction column
+	flex-wrap nowrap
+	justify-content space-between
+	align-items stretch
+	align-content space-between
+
+.wtf_row
+	display: flex
+	flex-direction: row
+	flex-wrap: wrap
+	justify-content: flex-start
+	align-content: center
+	align-items: center
+
+.wtf_header_item {
+	flex-grow: 2;
+	//margin: 10px 20px 10px 10px !important;
+	padding: 5px !important;
+	vertical-align: middle !important;
+	background: none;
+}
+
+.wtf_header_item > p{
+	margin: auto;
+	align-self: center;
+	//line-height: 100px;
+	text-align: center !important
+	vertical-align: middle !important;
+	//display: inline-block !important;
+}
+
+.wtf_cell_item {
+	flex-grow: 1;
+	margin: 10px !important;
+	padding: 5px !important;
+	//color: whitesmoke !important;
+	border-radius 10px
+}
+
+.wtf_cell_item > p {
+	line-height: 100px;
+	text-align: center !important
+	display: inline-block !important;
+	//word-break: break-all
+
+}
+
+.wtf_external {
+	//background-color: #222222;
+}
+
+.wtf_row_wrapped {
+
+}
+
+.wtf_row_border
+	border solid !important
+	border-color #0e0e0e !important
+	border-radius 10px
+
+.wtf_margin
+	margin 5px 0 5px 0 !important
+
+dt {
+	float: left;
+	width: 35%;
+	text-align: right;
+	padding: .25em;
+	clear: left;
+	margin-top: 20px !important;
+}
+dd {
+	float: left;
+	width: 60%;
+	padding: .25em 0;
+	margin-top: 20px !important;
+	margin-left: 20px !important;
+}
+dl:after {content:"";display:table;clear:both;}

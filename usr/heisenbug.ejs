@@ -1,0 +1,792 @@
+<div class="slides">
+
+    <div id="myLogo" style="background: url(img/logo.svg);
+                        background-repeat: no-repeat;
+                        position: relative;
+                        bottom: 3%;
+                        left: 110%;
+                        width: 100px;
+                        height: 100px;"></div>
+
+    <section class="stack">
+        <section>
+            <h3>
+                <div>Полный цикл тестирования микросервисов</div>
+                <div> в Docker контейнерах</div>
+            </h3>
+            <aside class="notes">
+                Вопрос залу - поднимите руку кто занимается тестированием микросервисов?
+            </aside>
+        </section>
+    </section>
+
+    <!--Вступление-->
+    <section class="stack">
+        <section data-transition="slide-in fade-out">
+            <h2>Что будет?</h2>
+            <ul>
+                <li class="fragment">Запустим микросервисы с использованием Docker</li>
+                <li class="fragment">Протестируем с помощью Gradle и WireMock</li>
+                <li class="fragment">Настроим Jenkins Pipeline</li>
+                <li class="fragment">Соберем отчеты в Report Portal и Allure Report</li>
+            </ul>
+            <div class="fragment" style="padding-top: 1em">
+                <a href="https://github.com/dins-heisenbug-2016"
+                style="color: #383d3d">
+                    github.com/dins-heisenbug-2016
+                </a>
+            </div>
+
+            <aside class="notes">
+                Переходим к положению дел на сегодня в нашей компании
+            </aside>
+        </section>
+    </section>
+    <!--Основная часть-->
+
+    <!--Положение дел на сегодня-->
+    <section class="stack">
+        <section data-transition="slide-in fade-out">
+            <h2>Сервис</h2>
+            <div class="fragment">обслуживает большую часть API</div>
+            <img class="croissant fragment fade-up"
+                 style="background: none; max-height: 65%; max-width: 65%" data-src="img/service.png">
+        </section>
+
+        <section data-transition="slide-in fade-out">
+            <h2>API Platform</h2>
+            <img class="croissant fade-up" data-fragment-index="0" style="background: none;"
+                 data-src="img/service_structure.png">
+        </section>
+
+        <section data-transition="slide-in fade-out">
+            <h2>Статистика</h2>
+            <div style="padding-top: 1em; display: flex; justify-content: space-around">
+                <div class="fragment fade-up" style="float: left; width: 35%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>сервис</div>
+                                    <div>237,000 SLOC</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 35%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>тесты</div>
+                                    <div>229,000 SLOC</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-transition="slide-in fade-out">
+            <h2>Статистика</h2>
+            <div style="padding-top: 1em; display: flex; justify-content: space-between">
+                <div class="fragment fade-up" style="float: left; width: 30%;">
+                    <div>1 500 страниц</div>
+                    <img class="croissant" src="img/war_and_peace.png">
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 30%;">
+                    <div>4 800 страниц</div>
+                    <img class="croissant" src="img/ice_and_fire.png">
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 30%;">
+                    <div>6 200 страниц</div>
+                    <img class="croissant" src="img/test_cases.png">
+                    <div>наши тест-кейсы</div>
+                </div>
+            </div>
+
+            <aside class="notes">
+                Вопрос залу - поднимите руку у кого черт ногу сломит в архитектурной диаграмме?
+            </aside>
+        </section>
+
+        <section data-transition="slide-in fade-out">
+            <h2>Система</h2>
+            <div>облачной коммуникации</div>
+            <img class="croissant fragment fade-up" style="background: none; padding-top: 50px"
+                 data-src="img/soa.png">
+        </section>
+
+        <section data-transition="slide-in fade-out">
+            <h2>Статистика</h2>
+            <div class="fragment">компонентов</div>
+            <div style="padding-top: 1em; display: flex; justify-content: space-around">
+                <div class="fragment fade-up" style="float: left; width: 35%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>API Platform</div>
+                                    <div>30</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 35%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>всего</div>
+                                    <div>310</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-transition="slide-in fade-out">
+            <h2>
+                <div>Окружение</div>
+                <div>нормального человека</div>
+            </h2>
+            <img class="croissant" style="padding-top: 1em;" data-fragment-index="0"
+                 data-src="img/upad.png">
+            <aside class="notes">
+                Вопрос залу - поднимите руку кому для тестовых окружений нужен дата центр?
+            </aside>
+        </section>
+
+        <section data-transition="slide-in fade-out">
+            <h2>Тестовые окружения</h2>
+            <h3 class="fragment fade-up" data-fragment-index="4">11 окружений</h3>
+            <div style="padding-top: 1em; display: flex; justify-content: space-between">
+                <div class="fragment fade-up" style="float: left; width: 30%;" data-fragment-index="1">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>70+ VM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 30%;" data-fragment-index="3">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>120 vCPU</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 30%;" data-fragment-index="2">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>160GB RAM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <aside class="notes">
+                Вопрос залу - поднимите руку у кого надо записываться на мерж в мастер за 3 месяца?
+            </aside>
+        </section>
+
+        <section data-transition="slide-in fade-out">
+            <h2>Процесс релиза</h2>
+            <div>7 команд  и 1 репозиторий</div>
+            <img class="croissant fragment fade-up" style="background: none; max-height: 68%; max-width: 68%; padding-top: 1em"
+                 data-src="img/seven_teams.png">
+        </section>
+
+        <section data-transition="slide-in fade-out">
+            <h2>Процесс релиза</h2>
+            <div style="padding-top: 1em; display: flex; justify-content: space-between">
+                <div class="fragment fade-up" style="float: left; width: 30%;" data-fragment-index="1">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <code style="color: #333; background-color: #F0F1EB">>  merge</code>
+                                    <div>полная</div>
+                                    <div>регрессия</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 30%;" data-fragment-index="2">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div><strong>1</strong> день</div>
+                                    <div>тратит</div>
+                                    <div>команда</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 30%;" data-fragment-index="3">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div><strong>1</strong> месяц</div>
+                                    <div>для всего</div>
+                                    <div>проекта</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-transition="slide-in fade-out">
+            <h2>Регрессионное тестирование</h2>
+            <div style="padding-top: 1em; display: flex; justify-content: space-around">
+                <div class="fragment fade-up" style="float: left; width: 35%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>15,000</div>
+                                    <div>тестов</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 35%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>1,5 + 3</div>
+                                    <div>часа</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <aside class="notes">
+                Проверяем много реальных интеграций внути системы, сосздаем аккаунты, приводим окружение в порядок
+            </aside>
+        </section>
+
+        <section data-transition="slide-in fade-out" data-background-image="img/microservices.png" data-background-transition="slide">
+            <div style="position: fixed; top: -200px; left: 0px; right: 0px;">в процессе декомпозиции на</div>
+            <h2 style="position: fixed; top: -160px; left: 0px; right: 0px;">Микросервисы</h2>
+            <aside class="notes">
+                Вопрос залу - поднимите руку кто думает что микросервисы нас спасут?
+            </aside>
+        </section>
+
+        <!--Последствия бездействия-->
+        <section data-transition="slide-in fade-out" data-background-image="img/hatty.png" data-background-transition="fade-out">
+            <h2 style="margin-bottom: 0px">А что если</h2>
+            <div class="fragment">сервис сам декомпозировался</div>
+            <div class="fragment" style="padding-top: 15px; position: relative; left: -10%">Интеграций станет
+                <div class="fragment" style="display: inline-block; color: #dc143c">больше</div>
+            </div>
+            <div class="fragment" style="padding-top: 15px; position: relative; left: 30%">Общая регрессия будет
+                <div class="fragment" style="display: inline-block; color: #dc143c">длиннее</div>
+            </div>
+            <div class="fragment" style="padding-top: 15px; position: relative; left: -10%">Тестовый фреймворк потребует
+                <div class="fragment" style="display: inline-block; color: #dc143c">новых костылей</div>
+            </div>
+            <div class="fragment" style="padding-top: 15px; position: relative; left: 0%">Поддержка CI-сервера
+                <div class="fragment" style="display: inline-block; color: #dc143c">усложнится</div>
+            </div>
+            <div class="fragment" style="padding-top: 15px; position: relative; left: 0%">Печаль.
+                <div class="fragment" style="display: inline-block; color: #dc143c">Беда.</div>
+            </div>
+        </section>
+
+        <section data-transition="slide-in fade-out" data-background-image="img/challenge.png"
+                 data-background-transition="slide">
+            <h2 style="position: fixed; top: -200px; left: 0; right:0">CHALLENGE ACCEPTED</h2>
+        </section>
+    </section>
+
+    <!--Варианты действий-->
+    <!--Сокращаем размер регрессии-->
+    <section class="stack">
+        <section data-transition="slide-in fade-out">
+            <h2>Дистрибуция</h2>
+            <div class="fragment fade-in" data-fragment-index="0">при использовании VM окружения будут различаться</div>
+            <img class="croissant fragment fade-up" data-fragment-index="1" style="background: none; padding-top: 2em"
+                 data-src="img/docker.png">
+        </section>
+
+        <section data-transition="slide-in fade-out">
+            <h2>Используем Docker</h2>
+            <div style="padding-top: 1em; display: flex; justify-content: space-around">
+                <div class="fragment fade-up" style="float: left; width: 35%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>работает</div>
+                                    <div>везде</div>
+                                    <div>и всегда</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 35%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>сервис</div>
+                                    <div>хранит всю</div>
+                                    <div>конфигурацию</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section class="stack">
+        <section>
+            <h2>Меняем подход к тестированию</h2>
+            <div style="padding-top: 1em; display: flex; justify-content: space-around">
+                <div class="fragment fade-up" style="float: left; width: 28%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>используем</div>
+                                    <div>заглушки</div>
+                                    <div>и моки</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 28%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>уменьшаем</div>
+                                    <div>общую</div>
+                                    <div>регрессию</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 28%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>делаем</div>
+                                    <div>окружение</div>
+                                    <div>меньше</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <pre>test task triggers compose in gradle<code>dockerCompose {
+    useComposeFiles = [new File(getProjectDir(), 'docker-compose.yml')]
+    stopContainers = true
+    removeContainers = false
+    removeVolumes = false
+    waitForHealthyStateTimeout = Duration.ofMinutes(1)
+    waitForTcpPortsTimeout = Duration.ofMinutes(3)
+}
+
+dockerCompose.isRequiredBy(test)</code></pre>
+        </section>
+    </section>
+
+    <section>
+        <section>
+            <h2>нужен <font color="#428bca">пример</font></h2>
+        </section>
+        <section data-background-image="img/piggy_metrics.png" data-background-transition="slide">
+        </section>
+        <section data-background-image="img/service_diagram.png" data-background-transition="slide">
+        </section>
+    </section>
+
+
+    <section class="stack">
+        <section data-transition="slide-in fade-out">
+            <h2>Тестовое окружение</h2>
+            <div>можно сделать из подручных средств и палок</div>
+            <img class="croissant fragment fade-up" data-fragment-index="0"
+                 style="background: none; max-height: 70%; max-width: 70%" data-src="img/test_env.png">
+        </section>
+
+        <section data-transition="slide-in fade-out" section data-background-image="img/docker_compose.png"
+                 data-background-transition="slide">
+            <div style="position: fixed; top: -300px; left: 0px; right: 0px;">
+                <h2>Тестовое окружение</h2>
+                <div>оркестрация, управление ресурсами,</div>
+                <div>балансировка, service discovery</div>
+            </div>
+        </section>
+
+        <section>
+            <pre style="width: 50%">docker-compose<code style="font-size: 24px">version: '2'
+services:
+    auth-service:
+        build: auth-service
+
+    account-service:
+        build: mock-service</code></pre>
+        </section>
+
+        <section>
+            <h2>нужен <font color="#428bca">пример</font></h2>
+            <aside class="notes">
+                Вопрос залу - вопрос к тем кто еще не тестирует микросервисы:
+                поднимите руку те кто думает что ваш тестовый фреймворк сможет нормально работать с микросервисами?
+            </aside>
+        </section>
+    </section>
+
+    <section class="stack">
+        <section data-transition="slide-in fade-out">
+            <h2>Тестовый фреймворк</h2>
+            <blockquote> — легендарное мифическое морское чудовище гигантских размеров, головоногий моллюск, известный
+                по описаниям исландских моряков, из языка которых и происходит его название.
+            </blockquote>
+            <div>то есть ...</div>
+        </section>
+        <section data-transition="slide-in fade-out" section data-background-image="img/kraken.png"
+                 data-background-transition="slide">
+            <h2 style="position: fixed; top: -300px; left: 0px; right: 0px;">Кракен</h2>
+        </section>
+        <section data-transition="slide-in fade-out">
+            <div class="fragment fade-left" data-fragment-index="0">когда текущий тестовый фреймворк <em>уже</em> не получился ...</div>
+            <h2 class="fragment fade-down" data-fragment-index="2" style="padding-bottom: 1em; padding-top: 1em">Что делать?</h2>
+            <div class="fragment fade-right" data-fragment-index="1">... а новый <em>ещё</em> не получился</div>
+        </section>
+
+        <section data-transition="slide-in fade-out">
+            <h2>Wonderful Testing Framework</h2>
+            <div style="padding-top: 1em; display: flex; justify-content: space-around">
+                <div class="fragment fade-up" style="float: left; width: 28%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>независимые</div>
+                                    <div>модули</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 28%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>делаем</div>
+                                    <div>вклад в</div>
+                                    <div>open-source</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 28%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>требования</div>
+                                    <div>к коду</div>
+                                    <div>prod-like</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <aside class="notes">
+                Независимые модули без жесткой связности
+            </aside>
+        </section>
+
+        <section>
+            <h2>Wonderful Testing Framework</h2>
+            <dl>
+                <dt class="fragment" data-fragment-index="1">DSL</dt>
+                <dd class="fragment" data-fragment-index="1">Технический, бизнес</dd>
+                <dt class="fragment" data-fragment-index="2">Выходные данные</dt>
+                <dd class="fragment" data-fragment-index="2">Отчеты, логирование, дашборды</dd>
+                <dt class="fragment" data-fragment-index="3">Окружение</dt>
+                <dd class="fragment" data-fragment-index="3">Конфигурация, моки</dd>
+                <dt class="fragment" data-fragment-index="4">Аналитика</dt>
+                <dd class="fragment" data-fragment-index="4">Статистика прогона, ошибки</dd>
+                <dt class="fragment" data-fragment-index="5">Интеграции</dt>
+                <dd class="fragment" data-fragment-index="5">Трекер задач, менеджер тест-кейсов, источники данных, CI сервер, хранилище логов</dd>
+            </dl>
+        </section>
+    </section>
+
+
+    <section class="stack">
+        <section>
+            <h2>Continuous</h2>
+            <div>Integration & Delivery</div>
+            <aside class="notes">
+                Вопрос залу - кто уже использует Jenkins Pipeline?
+                Выпускать маленькие релизы проще и быстрее, pipeline - это просто! (как два пальца, об асфальт, и всё, сука, в крови, открытый перелом, врача! врача! позовите врача!)
+            </aside>
+        </section>
+
+        <section data-background-transition="slide" data-background-image="img/jenkinsci.png">
+        </section>
+
+        <section data-background-transition="slide" data-background-image="img/jenkins3.png">
+            <div style="position: fixed; top: -250px; left: 0; right:0">
+                <h3 class="fragment fade-up" data-fragment-index="0">make</h3>
+                <h2>Jenkins Pipeline</h2>
+                <h3 class="fragment fade-up" data-fragment-index="1">great again</h3>
+            </div>
+        </section>
+
+        <section>
+            		<pre>generate allure report<code data-trim style="font-size: 24px; ">
+def allureBuilder =
+        docker.build('allure_builder', 'jenkins/allure-builder')
+
+allureBuilder.inside() {
+    sh "allure generate results -o reports"
+}</code></pre>
+        </section>
+
+        <section>
+            		<pre>parallel project build<code data-trim style="font-size: 24px;">
+for (int i = 0; i < projects.size(); i++) {
+    def project = projects[i]
+    builds["Build ${project}"] = {
+        stage("Build ${project}") {
+            gradleBuilder.inside() {
+                sh "gradle ${project}:build"
+            }
+        }
+    }
+}
+
+stage('Build') {
+    parallel builds
+}</code></pre>
+        </section>
+    </section>
+
+    <section class="stack">
+        <section>
+            <h2>нужен <font color="#428bca">пример</font></h2>
+        </section>
+    </section>
+
+    <section class="stack">
+        <section>
+            <img class="croissant fragment zoom-in current-visible" style="background: none; position: absolute; left: 0; right: 0;
+            min-height: 95%; min-width: 95%; max-width: 100% !important; max-height: 400px !important;"
+                 data-src="img/expected.png">
+            <img class="croissant fragment" style="background: none; position: absolute; left: 0; right: 0;
+            min-height: 95%; min-width: 95%; max-width: 100% !important; max-height: 400px !important;"
+                 data-src="img/expected2.png">
+            <img class="croissant fragment" style="background: none; position: absolute; left: 0; right: 0;
+            min-height: 95%; min-width: 95%; max-width: 100% !important; max-height: 400px !important;"
+                 data-src="img/expected3.png">
+            <aside class="notes">
+                Вопрос залу - кто может по логу в тестовом отчете назвать точную причину падения?
+            </aside>
+        </section>
+    </section>
+
+    <section class="stack">
+        <section data-transition="slide-in fade-out">
+            <h2>Отчет по тестированию</h2>
+            <div style="padding-top: 1em; display: flex; justify-content: space-around">
+                <div class="fragment fade-up" style="float: left; width: 28%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>разные</div>
+                                    <div>уровни</div>
+                                    <div>детализации</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 28%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>API</div>
+                                    <div>для</div>
+                                    <div>интеграции</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment fade-up" style="float: left; width: 28%;">
+                    <div class="circle">
+                        <div class="circle__inner">
+                            <div class="circle__wrapper">
+                                <div class="circle__content">
+                                    <div>результаты</div>
+                                    <div>в реальном</div>
+                                    <div>времени</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <aside class="notes">
+                Собирать много данных в один отчет, сервис-сьют-тест
+            </aside>
+        </section>
+        <section><h2>ReportNG</h2><h2><i class="fa-times-circle-o fragment" style="color: #9f191f"></i></h2></section>
+        <section data-background-transition="slide" data-background-image="img/reportng_base.png"></section>
+        <section><h2>Allure Report</h2><h2><i class="fa-check-circle-o fragment" style="color: #3c763d;"></i></h2></section>
+        <section data-background-transition="slide" data-background-image="img/allure_base.png">
+            <aside class="notes">
+                Yandex Allure Report - Удобный, Кастомизируемый, Нет истории
+            </aside>
+        </section>
+        <section>
+            <pre>integrate allure<code>@Step("{0}")
+private void logInfo(String s) {
+    log.info(s);
+}
+
+logInfo("Prepare account");</code></pre>
+        </section>
+        <section><h2>Extent Report</h2><h2><i class="fa-times-circle-o fragment" style="color: #9f191f"></i></h2></section>
+        <section data-background-transition="slide" data-background-image="img/extent_base.png"></section>
+        <section><h2>Report Portal</h2><h2><i class="fa-check-circle-o fragment" style="color: #3c763d;"></i></h2></section>
+        <section data-background-transition="slide" data-background-image="img/portal_base.png">
+            <aside class="notes">
+                Epam Report Portal - Хранит историю, есть API
+            </aside>
+        </section>
+    </section>
+
+    <section class="stack">
+        <section>
+            <h2>нужен <font color="#428bca">пример</font></h2>
+        </section>
+    </section>
+
+
+    <!--Приемущества-->
+    <section class="stack">
+
+        <section>
+            <h2>Что получили:</h2>
+            <ul>
+                <li>Артефакты, которые можно развернуть где угодно</li>
+                <li>Вся конфигурация хранится с кодом сервиса</li>
+                <li>Удобные инструменты для отчетов</li>
+                <li>и самое главное...</li>
+            </ul>
+        </section>
+
+        <!--Кульминация-->
+        <section data-background-transition="slide" data-background-image="img/final.png">
+            <h3>Сервисы умеют себя собирать, деплоить и тестировать</h3>
+            <aside class="notes">
+                Не тратим время на выпуск релиза, можем спокойно заниматься тестированием и улучшениями
+            </aside>
+        </section>
+
+    </section>
+
+    <section class="stack">
+        <section>
+            <div>
+                <a href="https://github.com/dins-heisenbug-2016"
+                   style="color: #383d3d">
+                    github.com/dins-heisenbug-2016
+                </a>
+            </div>
+            <div>
+                <a href="http://www.battleblocktheater.com"
+                   style="color: #383d3d">
+                    battleblocktheater.com
+                </a>
+            </div>
+            <div>
+                <a href="https://engineering.riotgames.com/search?search=jenkins"
+                   style="color: #383d3d">
+                    engineering.riotgames.com
+                </a>
+            </div>
+        </section>
+        <section>
+            <h3 style="margin-bottom: 0px">Почта</h3>
+
+            <div>
+                <a style="color: #383d3d" href="mailto:info@dins.ru">info@dins.ru</a>
+            </div>
+            <div>
+                <a style="color: #383d3d" href="mailto:andrey.smirnov@nordigy.ru">andrey.smirnov@dins.ru</a>
+            </div>
+            <div>
+                <a style="color: #383d3d" href="mailto:dmitry.krasilnikov@nordigy.ru">dmitry.krasilnikov@dins.ru</a>
+            </div>
+
+            <h3 style="padding-top: 40px; margin-bottom: 0px">Твиттер</h3>
+            <div>
+                <a href="https://twitter.com/andreich" style="color: #383d3d">
+                    @andreich
+                </a>
+            </div>
+            <div>
+                <a href="https://twitter.com/kr_dmitry" style="color: #383d3d">
+                    @kr_dmitry
+                </a>
+            </div>
+        </section>
+    </section>
+
+    <section class="stack">
+        <section>
+            <h2>Вопросы</h2>
+        </section>
+    </section>
+</div>
+
+
