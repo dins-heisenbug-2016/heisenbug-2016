@@ -27,7 +27,7 @@
             <ul>
                 <li class="fragment">Запустим микросервисы с использованием Docker</li>
                 <li class="fragment">Протестируем с помощью Gradle и WireMock</li>
-                <li class="fragment">Настроим Jenkins Pipeline</li>
+                <li class="fragment">Настроим Jenkins Pipeline на Docker'ах</li>
                 <li class="fragment">Соберем отчеты в Report Portal и Allure Report</li>
             </ul>
             <div class="fragment" style="padding-top: 1em">
@@ -423,18 +423,6 @@
         </section>
         <section data-background-image="img/service_diagram.png" data-background-transition="slide">
         </section>
-        <section>
-            <pre>test task triggers compose in gradle<code>dockerCompose {
-    useComposeFiles = [new File(getProjectDir(), 'docker-compose.yml')]
-    stopContainers = true
-    removeContainers = false
-    removeVolumes = false
-    waitForHealthyStateTimeout = Duration.ofMinutes(1)
-    waitForTcpPortsTimeout = Duration.ofMinutes(3)
-}
-
-dockerCompose.isRequiredBy(test)</code></pre>
-        </section>
     </section>
 
 
@@ -466,6 +454,19 @@ services:
 
     account-service:
         build: mock-service</code></pre>
+
+        </section>
+         <section>
+            <pre>test task triggers compose in gradle<code>dockerCompose {
+    useComposeFiles = [new File(getProjectDir(), 'docker-compose.yml')]
+    stopContainers = true
+    removeContainers = false
+    removeVolumes = false
+    waitForHealthyStateTimeout = Duration.ofMinutes(1)
+    waitForTcpPortsTimeout = Duration.ofMinutes(3)
+}
+
+dockerCompose.isRequiredBy(test)</code></pre>
           <aside class="notes">
                 Вопрос залу - вопрос к тем кто еще не тестирует микросервисы:
                 поднимите руку те кто думает что ваш тестовый фреймворк сможет нормально работать с микросервисами?
@@ -486,7 +487,7 @@ services:
             <h2 style="position: fixed; top: -300px; left: 0px; right: 0px;">Кракен</h2>
         </section>
         <section data-transition="slide-in fade-out">
-            <div class="fragment fade-left" data-fragment-index="0">когда текущий тестовый фреймворк <em>уже</em> не получился ...</div>
+            <div class="fade-left">когда текущий тестовый фреймворк <em>уже</em> не получился ...</div>
             <h2 class="fragment fade-down" data-fragment-index="2" style="padding-bottom: 1em; padding-top: 1em">Что делать?</h2>
             <div class="fragment fade-right" data-fragment-index="1">... а новый <em>ещё</em> не получился</div>
         </section>
@@ -584,8 +585,7 @@ services:
         </section>
          <section>
             		<pre>generate allure report<code data-trim style="font-size: 24px; ">
-def allureBuilder =
-        docker.build('allure_builder', 'jenkins/allure-builder')
+def allureBuilder = docker.build('jenkins/allure-builder')
 
 allureBuilder.inside() {
     sh "allure generate results -o reports"
@@ -677,20 +677,12 @@ stage('Build') {
             </aside>
         </section>
         <section><h2>ReportNG</h2><h2><i class="fa-times-circle-o fragment" style="color: #9f191f"></i></h2></section>
-        <section data-background-transition="slide" data-background-image="img/reportng_base.png"></section>
+        <section data-background-transition="slide-in" data-background-image="img/reportng_base.png"></section>
         <section><h2>Allure Report</h2><h2><i class="fa-check-circle-o fragment" style="color: #3c763d;"></i></h2></section>
-        <section data-background-transition="slide" data-background-image="img/allure_base.png">
+        <section data-background-transition="slide-in" data-background-image="img/allure_base.png">
             <aside class="notes">
                 Yandex Allure Report - Удобный, Кастомизируемый, Нет истории
             </aside>
-        </section>
-        <section>
-            <pre>integrate allure<code>@Step("{0}")
-private void logInfo(String s) {
-    log.info(s);
-}
-
-logInfo("Prepare account");</code></pre>
         </section>
         <section><h2>Extent Report</h2><h2><i class="fa-times-circle-o fragment" style="color: #9f191f"></i></h2></section>
         <section data-background-transition="slide" data-background-image="img/extent_base.png"></section>
@@ -706,6 +698,14 @@ logInfo("Prepare account");</code></pre>
         <section>
             <h2>нужен <font color="#428bca">пример</font></h2>
         </section>
+                <section>
+            <pre>integrate allure<code>@Step("{0}")
+private void logInfo(String s) {
+    log.info(s);
+}
+
+logInfo("Prepare account");</code></pre>
+        </section>
     </section>
 
 
@@ -713,13 +713,13 @@ logInfo("Prepare account");</code></pre>
     <section class="stack">
 
         <section>
-            <h2>Что получили:</h2>
+            <h2>Что получили</h2>
             <ul>
-                <li>Артефакты, которые можно развернуть где угодно</li>
-                <li>Вся конфигурация хранится с кодом сервиса</li>
-                <li>Удобные инструменты для отчетов</li>
-                <li>и самое главное...</li>
-            </ul>
+                <li class="fragment">Артефакты, которые можно развернуть где угодно</li>
+                <li class="fragment">Вся конфигурация хранится с кодом сервиса</li>
+                <li class="fragment">Удобные инструменты для отчетов</li>
+           </ul>
+            <h3 class="fragment">и самое главное...</h3>     
         </section>
 
         <!--Кульминация-->
@@ -741,15 +741,15 @@ logInfo("Prepare account");</code></pre>
                 </a>
             </div>
             <div>
-                <a href="http://www.battleblocktheater.com"
-                   style="color: #383d3d">
-                    battleblocktheater.com
-                </a>
-            </div>
-            <div>
                 <a href="https://engineering.riotgames.com/search?search=jenkins"
                    style="color: #383d3d">
                     engineering.riotgames.com
+                </a>
+            </div>
+            <div>
+                <a href="http://www.battleblocktheater.com"
+                   style="color: #383d3d">
+                    battleblocktheater.com
                 </a>
             </div>
         </section>
