@@ -177,7 +177,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="fragment fade-up" style="float: left; width: 30%;" data-fragment-index="3">
+                <div class="fragment fade-up" style="float: left; width: 30%;" data-fragment-index="2">
                     <div class="circle">
                         <div class="circle__inner">
                             <div class="circle__wrapper">
@@ -188,7 +188,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="fragment fade-up" style="float: left; width: 30%;" data-fragment-index="2">
+                <div class="fragment fade-up" style="float: left; width: 30%;" data-fragment-index="3">
                     <div class="circle">
                         <div class="circle__inner">
                             <div class="circle__wrapper">
@@ -413,6 +413,16 @@
                 </div>
             </div>
         </section>
+    </section>
+
+    <section>
+        <section>
+            <h2>нужен <font color="#428bca">пример</font></h2>
+        </section>
+        <section data-background-image="img/piggy_metrics.png" data-background-transition="slide">
+        </section>
+        <section data-background-image="img/service_diagram.png" data-background-transition="slide">
+        </section>
         <section>
             <pre>test task triggers compose in gradle<code>dockerCompose {
     useComposeFiles = [new File(getProjectDir(), 'docker-compose.yml')]
@@ -424,16 +434,6 @@
 }
 
 dockerCompose.isRequiredBy(test)</code></pre>
-        </section>
-    </section>
-
-    <section>
-        <section>
-            <h2>нужен <font color="#428bca">пример</font></h2>
-        </section>
-        <section data-background-image="img/piggy_metrics.png" data-background-transition="slide">
-        </section>
-        <section data-background-image="img/service_diagram.png" data-background-transition="slide">
         </section>
     </section>
 
@@ -456,6 +456,9 @@ dockerCompose.isRequiredBy(test)</code></pre>
         </section>
 
         <section>
+            <h2>нужен <font color="#428bca">пример</font></h2>
+        </section>
+        <section>
             <pre style="width: 50%">docker-compose<code style="font-size: 24px">version: '2'
 services:
     auth-service:
@@ -463,11 +466,7 @@ services:
 
     account-service:
         build: mock-service</code></pre>
-        </section>
-
-        <section>
-            <h2>нужен <font color="#428bca">пример</font></h2>
-            <aside class="notes">
+          <aside class="notes">
                 Вопрос залу - вопрос к тем кто еще не тестирует микросервисы:
                 поднимите руку те кто думает что ваш тестовый фреймворк сможет нормально работать с микросервисами?
             </aside>
@@ -577,8 +576,13 @@ services:
                 <h3 class="fragment fade-up" data-fragment-index="1">great again</h3>
             </div>
         </section>
+    </section>
 
+    <section class="stack">
         <section>
+            <h2>нужен <font color="#428bca">пример</font></h2>
+        </section>
+         <section>
             		<pre>generate allure report<code data-trim style="font-size: 24px; ">
 def allureBuilder =
         docker.build('allure_builder', 'jenkins/allure-builder')
@@ -604,12 +608,6 @@ for (int i = 0; i < projects.size(); i++) {
 stage('Build') {
     parallel builds
 }</code></pre>
-        </section>
-    </section>
-
-    <section class="stack">
-        <section>
-            <h2>нужен <font color="#428bca">пример</font></h2>
         </section>
     </section>
 
